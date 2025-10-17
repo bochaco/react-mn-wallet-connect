@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# React Midnight Wallet Connector
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Generic badge](https://img.shields.io/badge/React-18.x-blue.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://shields.io/)
 
-Currently, two official plugins are available:
+A small React app that demonstrates how to connect a web app to the Midnight Network Wallet via dApp connector API and browser wallet extensions (for example, Lace). Use this as a reference implementation for connecting and interacting with dApp Connector APIs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## React Compiler
+This app provides a reference implementation for connecting React applications to the Midnight Network through browser wallet extensions like Lace.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- 🔌 Connect/Disconnect to Midnight Network Lace wallet
+- 👛 Display wallet address
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Node.js**: v18 or higher
+- **npm** or **yarn** package manager 
+- [Midnight Lace wallet extension](https://chromewebstore.google.com/detail/lace-beta/hgeekaiplokcnmakghbdfbgnlfheichg) installed in your browser
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tutorial
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+TODO: step by sep tutorial demonstrating Midnight dApp Connector API usage.
+
+
+## Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Or using yarn
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Start development server
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Or using yarn
+yarn dev
 ```
+
+The app will be available at `http://localhost:5173`
+
+## Project Structure
+
+```
+react-wallet-connector/
+├── src/               # Source code
+│   └── components/    # React components
+├── public/           # Static assets
+└── package.json      # Project configuration
+```
+
+## Useful Links
+
+- [Midnight Network Documentation](https://docs.midnight.network)
+- [Lace Wallet Documentation](https://docs.midnight.network/getting-started/installation#install-the-lace-midnight-preview-wallet)
+- [React Documentation](https://react.dev)

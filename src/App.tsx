@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useCallback } from "react";
+import WalletCard from "./components/WalletCard";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+
+  const handleConnect = useCallback(async () => {
+    try {
+      const connectorAPI = await window.midnight?.mnLace.enable();
+
+      const isEnabled = await window.midnight?.mnLace.isEnabled();
+      if (isEnabled) {
+        console.log("Connected to the wallet:", connectorAPI);
+        setIsConnected(true);
+        const state = await connectorAPI.state();
+        setWalletAddress(state.address);
+      } else {
+        setIsConnected(false);
+        setWalletAddress(null);
+      }
+    } catch (error) {
+      console.log("An error occurred:", error.reason || error);
+      setIsConnected(false);
+      setWalletAddress(null);
+    }
+  }, []);
+
+  const handleDisconnect = useCallback(() => {
+    setWalletAddress(null);
+    setIsConnected(false);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div className="bg-gray-900 flex flex-col items-center justify-center p-4 font-sans">
+      <header className="text-center mb-10">
+        <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+          Midnight Wallet Connector
+        </h1>
+        <p className="text-gray-400 mt-2">
+          A simple and elegant interface for Midnight wallet interactions.
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      </header>
+      <main>
+        <WalletCard
+          isConnected={isConnected}
+          walletAddress={walletAddress}
+          onConnect={handleConnect}
+          onDisconnect={handleDisconnect}
+        />
+      </main>
+      <footer className="absolute bottom-4 text-gray-500 text-sm">
+        <p>Built with React, TypeScript, and Tailwind CSS</p>
+      </footer>
+    </div>
+  );
+};
 
-export default App
+export default App;
