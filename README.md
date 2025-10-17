@@ -3,7 +3,7 @@
 [![Generic badge](https://img.shields.io/badge/React-18.x-blue.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://shields.io/)
 
-A small React app that demonstrates how to connect a web app to the Midnight Network Wallet via dApp connector API and browser wallet extensions (for example, Lace). Use this as a reference implementation for connecting and interacting with dApp Connector APIs.
+A small React app that demonstrates how to connect a web app to the Midnight Network Wallet via dApp connector API and browser wallet extensions (for example, Lace). Use this as a reference implementation for connecting and interacting with [Midnight dApp Connector APIs](https://docs.midnight.network/develop/reference/midnight-api/dapp-connector).
 
 ## Overview
 
@@ -13,6 +13,8 @@ This app provides a reference implementation for connecting React applications t
 
 - 🔌 Connect/Disconnect to Midnight Network Lace wallet
 - 👛 Display wallet address
+
+<img src="public/screenshot.png" width = 400 />
 
 ## Prerequisites
 
