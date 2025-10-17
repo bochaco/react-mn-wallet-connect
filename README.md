@@ -24,8 +24,12 @@ This app provides a reference implementation for connecting React applications t
 
 ## Tutorial
 
-TODO: step by sep tutorial demonstrating Midnight dApp Connector API usage.
+If you are a developer familiar with React but new to Midnight, you can refer to the [TUTORIAL](TUTORIAL.md) which will guide you through the basic steps to create a React application that connects to a wallet using the Midnight DApp Connector API.
 
+After using this tutorial and example app, you should:
+- Understand basic Midnight wallet connection flow
+- Know how to use @midnight-ntwrk/dapp-connector-api
+- Have working starter code to build your own applications
 
 ## Installation
 
