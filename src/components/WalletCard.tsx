@@ -22,11 +22,6 @@ const WalletCard: React.FC<WalletCardProps> = ({
           <span className="text-sm font-medium">
             {isConnected ? "Connected" : "Disconnected"}
           </span>
-          <div
-            className={`w-3 h-3 rounded-full ${
-              isConnected ? "bg-green-400 animate-pulse" : "bg-red-400"
-            }`}
-          ></div>
         </div>
       </div>
 
