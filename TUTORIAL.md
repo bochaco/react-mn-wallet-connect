@@ -2,28 +2,11 @@
 
 This tutorial will guide you through creating a React application that connects to a wallet using the Midnight DApp Connector API.
 
-## Project Setup
-
-First, create a new project directory and initialize it:
-
-```bash
-mkdir react-mn-wallet-connect
-cd react-mn-wallet-connect
-npm create vite@latest
-```
-
-When prompted, provide these answers:
-- Project name: `react-mn-wallet-connect`
-- Select a framework: `React`
-- Select a variant: `TypeScript`
-- Use rolldown-vite (Experimental)?: `No`
-- Install with npm and start now?: `Yes`
-
-You can open the application in your browser: `http://localhost:5173/`
+Note: the code examples in this tutorial intentionally omit CSS and visual styling to keep the examples focused and easy to read. The actual example code includes full styling (Tailwind classes and additional CSS) so the components are displayed with a polished, user-friendly appearance.
 
 ## Step 1: Define TypeScript Interfaces
 
-Create a new file `src/types.ts`:
+The actual implementation of the interfaces shown below can be found in the example app at `src/types.ts`:
 
 ```typescript
 import type { ReactNode } from 'react';
@@ -44,7 +27,7 @@ export interface WalletCardProps {
 
 ## Step 2: Create Button Component
 
-Create `src/components/Button.tsx`:
+The implementation used in the example app is available at `src/components/Button.tsx`:
 
 ```typescript
 import React from "react";
@@ -61,7 +44,7 @@ const Button: React.FC<ButtonProps> = ({onClick, children, className = ""}) => {
 
 ## Step 3: Create WalletCard Component
 
-Create `src/components/WalletCard.tsx`:
+The WalletCard component as implemented in the example app can be found at `src/components/WalletCard.tsx`:
 
 ```typescript
 import React from "react";
@@ -108,7 +91,7 @@ const WalletCard: React.FC<WalletCardProps> = ({
 
 ## Step 4: Create Main App Component
 
-Create `src/App.tsx`:
+The App component shown below is implemented in the example app at `src/App.tsx`:
 
 ```typescript
 import React, { useState, useCallback } from 'react';
@@ -150,7 +133,7 @@ const App: React.FC = () => {
 
 ## Step 5: Create Entry Point
 
-Create `src/main.tsx`:
+The entry point used in the example app is at `src/main.tsx`:
 
 ```typescript
 import { StrictMode } from 'react';
@@ -167,7 +150,7 @@ createRoot(document.getElementById('root')!).render(
 
 ## Step 6: Configure HTML and Tailwind
 
-Create `index.html`:
+The HTML used by the example app is available at `index.html`:
 
 ```html
 <!doctype html>
