@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import WalletCard from "./components/WalletCard";
+import WalletCard from "./WalletCard";
 import "./App.css";
 
 const App: React.FC = () => {
@@ -7,24 +7,24 @@ const App: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
   const handleConnect = useCallback(async () => {
+    let isConnected = false;
+    let address = null;
     try {
       const connectorAPI = await window.midnight?.mnLace.enable();
 
       const isEnabled = await window.midnight?.mnLace.isEnabled();
       if (isEnabled) {
+        isConnected = true;
         console.log("Connected to the wallet:", connectorAPI);
-        setIsConnected(true);
         const state = await connectorAPI.state();
-        setWalletAddress(state.address);
-      } else {
-        setIsConnected(false);
-        setWalletAddress(null);
+        address = state.address;
       }
     } catch (error) {
       console.log("An error occurred:", error.reason || error);
-      setIsConnected(false);
-      setWalletAddress(null);
     }
+
+    setIsConnected(isConnected);
+    setWalletAddress(address);
   }, []);
 
   const handleDisconnect = useCallback(() => {

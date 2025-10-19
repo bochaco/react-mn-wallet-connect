@@ -1,6 +1,5 @@
 import React from "react";
-import Button from "./Button";
-import type { WalletCardProps } from "../types";
+import type { WalletCardProps } from "./types";
 
 const WalletCard: React.FC<WalletCardProps> = ({
   isConnected,
@@ -45,19 +44,19 @@ const WalletCard: React.FC<WalletCardProps> = ({
 
       <div className="mt-8">
         {isConnected ? (
-          <Button
-            onClick={onDisconnect}
+          <button
             className="w-full bg-red-600 hover:bg-red-700 focus:ring-red-500"
+            onClick={onDisconnect}
           >
             Disconnect Wallet
-          </Button>
+          </button>
         ) : (
-          <Button
+          <button
             onClick={onConnect}
             className="w-full bg-purple-600 hover:bg-purple-700 focus:ring-purple-500"
           >
             Connect Wallet
-          </Button>
+          </button>
         )}
       </div>
     </div>

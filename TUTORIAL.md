@@ -8,21 +8,11 @@ Also, the code in this tutorial is framework-agnostic and can be used with any R
 
 ## Step 1: Define TypeScript Interfaces
 
-Let's first define a couple of interfaces for the props passed between the components we are going to create. Their main purpose is to provide type safety and clear contracts for components.
-
-Button enforces an onClick and children payload, while WalletCard describes the connection state and callbacks used by the app to trigger connect/disconnect actions.
+Let's first define a interface for the props passed between the component we are going to create. Their main purpose is to provide type safety and clear contracts for components. WalletCard describes the connection state and callbacks used by the app to trigger connect/disconnect actions.
 
 The actual implementation of the interfaces shown below can be found in the example app at [src/types.ts](src/types.ts).
 
 ```typescript
-import type { ReactNode } from 'react';
-
-export interface ButtonProps {
-  onClick: () => void;
-  children: ReactNode;
-  className?: string;
-}
-
 export interface WalletCardProps {
   isConnected: boolean;
   walletAddress: string | null;
@@ -31,36 +21,16 @@ export interface WalletCardProps {
 }
 ```
 
-## Step 2: Create Button Component
+## Step 2: Create WalletCard Component
 
-We now define a Button component: it receives an onClick handler, content, and optional styling. Its purpose is to centralize button behavior/markup so other components (like WalletCard) can remain focused on logic rather than repetitive element structure.
+The `WalletCard` aggregates UI and actions related to the wallet connection: it shows status, displays the address when available, and exposes connect/disconnect actions via the Button component. 
 
-The implementation used in the example app is available at [src/components/Button.tsx](src/components/Button.tsx).
+Its main role in the app is to be the single visible component that reflects the wallet connection state and triggers the logic handled by the `App` component we'll define afterwards.
 
-```typescript
-import React from "react";
-import type { ButtonProps } from "../types";
-
-const Button: React.FC<ButtonProps> = ({onClick, children, className = ""}) => {
-  return (
-    <button onClick={onClick} className={className}>
-      {children}
-    </button>
-  );
-};
-```
-
-## Step 3: Create WalletCard Component
-
-The WalletCard aggregates UI and actions related to the wallet connection: it shows status, displays the address when available, and exposes connect/disconnect actions via the Button component. 
-
-Its main role in the app is to be the single visible component that reflects the wallet connection state and triggers the logic handled by the App component.
-
-The WalletCard component as implemented in the example app can be found at [src/components/WalletCard.tsx](src/components/WalletCard.tsx).
+The `WalletCard` component as implemented in the example app can be found at [src/WalletCard.tsx](src/WalletCard.tsx).
 
 ```typescript
 import React from "react";
-import Button from "./Button";
 import type { WalletCardProps } from "../types";
 
 const WalletCard: React.FC<WalletCardProps> = ({
@@ -91,9 +61,9 @@ const WalletCard: React.FC<WalletCardProps> = ({
 
       <div>
         {isConnected ? (
-          <Button onClick={onDisconnect}>Disconnect Wallet</Button>
+          <button onClick={onDisconnect}>Disconnect Wallet</button>
         ) : (
-          <Button onClick={onConnect}>Connect Wallet</Button>
+          <button onClick={onConnect}>Connect Wallet</button>
         )}
       </div>
     </div>
@@ -101,17 +71,17 @@ const WalletCard: React.FC<WalletCardProps> = ({
 };
 ```
 
-## Step 4: Create Main App Component
+## Step 3: Create Main App Component
 
-We need one last component, the App component, which manages state and business logic: it holds connection state and the current wallet address, and provides callbacks to child components to change that state. 
+We need one last component, the `App` component, which manages state and business logic: it holds connection state and the current wallet address, and provides callbacks to child components to change that state. 
 
-To begin with, the connect handler is a stub producing a dummy wallet address; later on we will call the Midnight DApp Connector. App wires UI (WalletCard) to the connector logic and is the central coordinator for the application.
+To begin with, the connect handler is a stub producing a dummy wallet address; later on we will call the Midnight DApp Connector. `App` wires UI (WalletCard) to the connector logic and is the central coordinator for the application.
 
-The App component shown below is implemented in the example app at [src/App.tsx](src/App.tsx).
+The `App` component shown below is implemented in the example app at [src/App.tsx](src/App.tsx).
 
 ```typescript
 import React, { useState, useCallback } from 'react';
-import WalletCard from './components/WalletCard';
+import WalletCard from './WalletCard';
 
 const App: React.FC = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
@@ -147,9 +117,9 @@ const App: React.FC = () => {
 };
 ```
 
-## Step 5: Create Entry Point
+## Step 4: Create Entry Point
 
-At this point we are ready to bootstrap the React application into the DOM. We can now mount the App component and ensure React runs in StrictMode during development.
+At this point we are ready to bootstrap the React application into the DOM. We can now mount the `App` component and ensure React runs in StrictMode during development.
 
 In the implemented example it also pulls in Tailwind-generated CSS so the UI renders with the intended styling, this can be found at [src/main.tsx](src/main.tsx).
 
@@ -165,7 +135,7 @@ createRoot(document.getElementById('root')!).render(
 );
 ```
 
-## Step 6: Configure HTML and Tailwind
+## Step 5: Configure HTML and Tailwind
 
 Lastly, we create the HTML file providing the hosting page for the single-page app and links the global stylesheet. Its role is simple but essential: it includes the root element where React mounts and ensures the app's CSS is loaded so the components from the example app display with the intended polished appearance.
 
@@ -187,7 +157,7 @@ The HTML used by the example app is available at [index.html](index.html).
 
 Your application should now be displaying a dummy address, so now we are ready to add the last piece to integrate it with the Midnight DApp Connector, to retrieve the actual wallet's address.
 
-## Step 7: Install Midnight DApp Connector
+## Step 6: Install Midnight DApp Connector
 
 Install the required package:
 
@@ -195,33 +165,42 @@ Install the required package:
 npm install @midnight-ntwrk/dapp-connector-api
 ```
 
-## Step 8: Integrate Midnight DApp Connector
+## Step 7: Integrate Midnight DApp Connector
 
 Let's now replace `handleConnect` function body in the App component with a real implementation using the DApp Connector API.
 
 This code demonstrates how to call the Midnight DApp Connector API to enable the wallet, check whether it's enabled, and retrieve the current wallet state (including the address). With this code, the App's state reflects the actual wallet and the WalletCard displays the real address and connection status:
 
-```typescript
-  const handleConnect = useCallback(async () => {
-    try {
-      const connectorAPI = await window.midnight?.mnLace.enable();
+The DApp connector API should be exposed through the global variable `window.midnight.{walletName}`.
 
-      const isEnabled = await window.midnight?.mnLace.isEnabled();
-      if (isEnabled) {
-        console.log("Connected to the wallet:", connectorAPI);
-        setIsConnected(true);
-        const state = await connectorAPI.state();
-        setWalletAddress(state.address);
-      } else {
-        setIsConnected(false);
-        setWalletAddress(null);
-      }
-    } catch (error) {
-      console.log("An error occurred:", error);
-      setIsConnected(false);
-      setWalletAddress(null);
+```typescript
+const handleConnect = useCallback(async () => {
+  let isConnected = false;
+  let address = null;
+  try {
+    // To authorize a DApp, call the enable() method and wait for 
+    // the user to respond to the request.
+    const connectorAPI = await window.midnight?.mnLace.enable();
+
+    // Let's now check if the DApp is authorized, using the isEnabled() method
+    const isEnabled = await window.midnight?.mnLace.isEnabled();
+    if (isEnabled) {
+      isConnected = true;
+      console.log("Connected to the wallet:", connectorAPI);
+
+      // To get the wallet state, we call the state() API method, that will
+      // return the DAppConnectorWalletState object, which is where we can get 
+      // the wallet address from.
+      const state = await connectorAPI.state();
+      address = state.address;
     }
-  }, []);
+  } catch (error) {
+    console.log("An error occurred:", error);
+  }
+
+  setIsConnected(isConnected);
+  setWalletAddress(address);
+}, []);
 ```
 
-Your application should now be running with the Midnight DApp Connector integration!
+Your application should now be running with the Midnight DApp Connector integration, requesting the user to authorise it from the Lace wallet, and displaying the corresponding connection status and wallet address!.
