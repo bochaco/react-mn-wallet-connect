@@ -31,7 +31,7 @@ The `WalletCard` component as implemented in the example app can be found at [sr
 
 ```typescript
 import React from "react";
-import type { WalletCardProps } from "../types";
+import type { WalletCardProps } from "./types";
 
 const WalletCard: React.FC<WalletCardProps> = ({
   isConnected,
