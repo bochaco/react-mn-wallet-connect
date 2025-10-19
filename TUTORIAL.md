@@ -80,24 +80,24 @@ To begin with, the connect handler is a stub producing a dummy wallet address; l
 The `App` component shown below is implemented in the example app at [src/App.tsx](src/App.tsx).
 
 ```typescript
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import WalletCard from './WalletCard';
 
 const App: React.FC = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
-  const handleConnect = useCallback(() => {
+  const handleConnect = () => {
     // We will replace this to actually use the Midnight DApp connector API.
     const fakeAddress = `0x${Array(40).fill(0).join("")}`;
     setWalletAddress(fakeAddress);
     setIsConnected(true);
-  }, []);
+  };
 
-  const handleDisconnect = useCallback(() => {
+  const handleDisconnect = () => {
     setWalletAddress(null);
     setIsConnected(false);
-  }, []);
+  };
 
   return (
     <div>
@@ -135,7 +135,7 @@ createRoot(document.getElementById('root')!).render(
 );
 ```
 
-## Step 5: Configure HTML and Tailwind
+## Step 5: Configure HTML
 
 Lastly, we create the HTML file providing the hosting page for the single-page app and links the global stylesheet. Its role is simple but essential: it includes the root element where React mounts and ensures the app's CSS is loaded so the components from the example app display with the intended polished appearance.
 
@@ -174,7 +174,7 @@ This code demonstrates how to call the Midnight DApp Connector API to enable the
 The DApp connector API should be exposed through the global variable `window.midnight.{walletName}`.
 
 ```typescript
-const handleConnect = useCallback(async () => {
+const handleConnect = async () => {
   let isConnected = false;
   let address = null;
   try {
@@ -200,7 +200,7 @@ const handleConnect = useCallback(async () => {
 
   setIsConnected(isConnected);
   setWalletAddress(address);
-}, []);
+};
 ```
 
 Your application should now be running with the Midnight DApp Connector integration, requesting the user to authorise it from the Lace wallet, and displaying the corresponding connection status and wallet address!.

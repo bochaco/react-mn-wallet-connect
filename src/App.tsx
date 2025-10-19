@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import WalletCard from "./WalletCard";
 import "./App.css";
 
@@ -6,7 +6,7 @@ const App: React.FC = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
-  const handleConnect = useCallback(async () => {
+  const handleConnect = async () => {
     let isConnected = false;
     let address = null;
     try {
@@ -25,12 +25,12 @@ const App: React.FC = () => {
 
     setIsConnected(isConnected);
     setWalletAddress(address);
-  }, []);
+  };
 
-  const handleDisconnect = useCallback(() => {
+  const handleDisconnect = () => {
     setWalletAddress(null);
     setIsConnected(false);
-  }, []);
+  };
 
   return (
     <div className="bg-gray-900 flex flex-col items-center justify-center p-4 font-sans">
