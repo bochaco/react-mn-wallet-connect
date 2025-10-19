@@ -135,11 +135,7 @@ createRoot(document.getElementById('root')!).render(
 );
 ```
 
-## Step 5: Configure HTML
-
-Lastly, we create the HTML file providing the hosting page for the single-page app and links the global stylesheet. Its role is simple but essential: it includes the root element where React mounts and ensures the app's CSS is loaded so the components from the example app display with the intended polished appearance.
-
-The HTML used by the example app is available at [index.html](index.html).
+Lastly, we create the HTML file providing the hosting page for the single-page app and links the global stylesheet. The HTML used by the example app is available at [index.html](index.html).
 
 ```html
 <!doctype html>
@@ -157,15 +153,7 @@ The HTML used by the example app is available at [index.html](index.html).
 
 Your application should now be displaying a dummy address, so now we are ready to add the last piece to integrate it with the Midnight DApp Connector, to retrieve the actual wallet's address.
 
-## Step 6: Install Midnight DApp Connector
-
-Install the required package:
-
-```bash
-npm install @midnight-ntwrk/dapp-connector-api
-```
-
-## Step 7: Integrate Midnight DApp Connector
+## Step 5: Integrate Midnight DApp Connector
 
 Let's now replace `handleConnect` function body in the App component with a real implementation using the DApp Connector API.
 
