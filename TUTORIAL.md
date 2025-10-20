@@ -155,9 +155,9 @@ Your application should now be displaying a dummy address, so now we are ready t
 
 ## Step 5: Integrate Midnight DApp Connector
 
-Let's now replace `handleConnect` function body in the App component with a real implementation using the DApp Connector API.
+Let's now replace `handleConnect` function body in the `App` component with a real implementation using the DApp Connector API.
 
-This code demonstrates how to call the Midnight DApp Connector API to enable the wallet, check whether it's enabled, and retrieve the current wallet state (including the address). With this code, the App's state reflects the actual wallet and the WalletCard displays the real address and connection status:
+This code demonstrates how to call the Midnight DApp Connector API to enable the wallet, check whether it's enabled, and retrieve the current wallet state (including the address). With this code, the `WalletCard` displays the real address and connection status:
 
 The DApp connector API should be exposed through the global variable `window.midnight.{walletName}`.
 

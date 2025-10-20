@@ -53,16 +53,6 @@ yarn dev
 
 The app will be available at `http://localhost:5173`
 
-## Project Structure
-
-```
-react-wallet-connector/
-├── src/               # Source code
-│   └── components/    # React components
-├── public/           # Static assets
-└── package.json      # Project configuration
-```
-
 ## Useful Links
 
 - [Midnight Network Documentation](https://docs.midnight.network)
